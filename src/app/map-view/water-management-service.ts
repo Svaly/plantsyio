@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WaterManagementService {
 
-  private rainWaterLevelSubject = new BehaviorSubject<number>(100); // Starting with 0 as default
+  private rainWaterLevelSubject = new BehaviorSubject<number>(100);
   rainWaterLevel$ = this.rainWaterLevelSubject.asObservable();
 
   constructor() {}

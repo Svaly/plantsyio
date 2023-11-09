@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Area, FactoryPlanService, Room } from './factory-plan-service';
 import { AreaDetailsModalComponent } from './area-details-modal/area-details-modal.component';
 import { WaterManagementService } from './water-management-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-map-view',
@@ -14,7 +15,7 @@ export class MapViewComponent implements OnInit {
   rows: Area[][] = [];
   centralRoom: Room | null = null;
   loading = true;
-  rainWaterLevel: number | null = null;
+  rainWaterLevel$: Observable<number> | undefined;
 
   constructor(
     private modalService: NgbModal,
@@ -23,10 +24,7 @@ export class MapViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFactoryData();
-
-    this.waterManagementService.getWaterLevel().subscribe(level => {
-      this.rainWaterLevel = level;
-    });
+    this.rainWaterLevel$ = this.waterManagementService.rainWaterLevel$;
   }
 
   openAreaDetails(area: Area) {

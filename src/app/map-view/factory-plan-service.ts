@@ -5,6 +5,7 @@ export interface Area {
   id: number;
   name: string;
   classes: string;
+  soilMoisture?: number | undefined;
 }
 
 export interface Room {
@@ -24,19 +25,19 @@ export class FactoryPlanService {
   private dataSubject = new BehaviorSubject<FactoryPlanServiceData>({
     rows: [
       [
-        { id:1, name: 'Plant Area 1', classes: 'col-md-5 plant-area' },
+        { id:1, name: 'Plant Area 1', classes: 'col-md-5 plant-area', soilMoisture: 55 },
         { id:2,  name: '', classes: 'col-md-2 path' },
-        { id:3,  name: 'Plant Area 2', classes: 'col-md-5 plant-area' }
+        { id:3,  name: 'Plant Area 2', classes: 'col-md-5 plant-area' , soilMoisture: 55}
       ],
       [
-        { id:4, name: 'Plant Area 1', classes: 'col-md-5 plant-area' },
+        { id:4, name: 'Plant Area 1', classes: 'col-md-5 plant-area' , soilMoisture: 11},
         { id:5,  name: '', classes: 'col-md-2 path' },
-        { id:6,  name: 'Plant Area 2', classes: 'col-md-5 plant-area' }
+        { id:6,  name: 'Plant Area 2', classes: 'col-md-5 plant-area' , soilMoisture: 53}
       ],
       [
-        { id:7, name: 'Plant Area 1', classes: 'col-md-5 plant-area' },
+        { id:7, name: 'Plant Area 1', classes: 'col-md-5 plant-area', soilMoisture: 87 },
         { id:8,  name: '', classes: 'col-md-2 path' },
-        { id:9, name: 'Plant Area 2', classes: 'col-md-5 plant-area' }
+        { id:9, name: 'Plant Area 2', classes: 'col-md-5 plant-area', soilMoisture: 45 }
       ],
       // Repeat this structure for additional rows as needed
     ],

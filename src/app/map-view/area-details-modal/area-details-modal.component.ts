@@ -12,12 +12,14 @@ export class AreaDetailsModalComponent implements OnInit {
   @Output() updatedArea = new EventEmitter<Area>();
 
   public areaName = '';
+  public soilMoisture? = 0;
 
   constructor(public activeModal: NgbActiveModal) {}
 
   onSave() {
     if (this.area) {
       this.area.name = this.areaName;
+      this.area.soilMoisture = this.soilMoisture;
       this.updatedArea.emit(this.area);
       this.activeModal.close(this.area);
     }
@@ -26,6 +28,7 @@ export class AreaDetailsModalComponent implements OnInit {
   ngOnInit(): void {
     if (this.area?.name) {
       this.areaName = this.area.name;
+      this.soilMoisture = this.area.soilMoisture;
     }
   }
 

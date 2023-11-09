@@ -9,7 +9,13 @@
       <label for="areaName" class="form-label">Area Name</label>
       <input type="text" class="form-control" id="areaName" [(ngModel)]="areaName" name="areaName">
     </div>
+
+    <div class="mb-3" *ngIf="soilMoisture !== undefined">
+      <label for="soilMoisture" class="form-label">Soil Moisture (%)</label>
+      <input type="text" class="form-control" id="soilMoisture" [value]="soilMoisture" name="soilMoisture" readonly>
+    </div>
   </form>
+
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>

@@ -1,0 +1,18 @@
+.plant-area {
+  background-color: #90ee90; /* Light green */
+  border: 1px solid #298029; /* Darker green border */
+  min-height: 100px; /* Minimum height for demonstration */
+  margin-bottom: 10px; /* Spacing between rows */
+}
+
+.path {
+  background-color: #cccccc; /* Light gray for paths */
+  min-height: 100px; /* Minimum height for demonstration */
+}
+
+.room {
+  background-color: #add8e6; /* Light blue for the room */
+  border: 1px solid #000066; /* Dark blue border */
+  min-height: 100px; /* Minimum height for demonstration */
+  margin-bottom: 10px; /* Spacing between rows */
+}

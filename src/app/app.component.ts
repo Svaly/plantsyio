@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'plantsyio';
+  currentTab: 'map' | 'list' = 'map';
+
+  selectTab(tab: 'map' | 'list') {
+    this.currentTab = tab;
+  }
+
+
 }

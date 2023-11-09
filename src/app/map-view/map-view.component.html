@@ -1,0 +1,21 @@
+<div *ngIf="loading" class="loader">Loading...</div>
+
+<div class="container mt-3" *ngIf="!loading">
+  <!-- Iterate over each row -->
+  <div *ngFor="let row of rows" class="row g-2">
+    <!-- Iterate over each area within the row -->
+    <div *ngFor="let area of row" [class]="area.classes + ' d-flex align-items-center justify-content-center'"
+    (click)="openAreaDetails(area)">
+      {{ area.name }}
+    </div>
+  </div>
+
+  <!-- Central Room at the center at the bottom -->
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-2"></div> <!-- Empty div for spacing -->
+    <div [class]="centralRoom?.classes + ' d-flex align-items-center justify-content-center'">
+      {{ centralRoom?.content }}
+    </div>
+    <div class="col-md-2"></div> <!-- Empty div for spacing -->
+  </div>
+</div>

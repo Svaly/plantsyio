@@ -1,1 +1,13 @@
-<h1>Plantsy.io</h1>
+<h1 class="text-center">Plantsy.io</h1>
+
+<div class="d-flex justify-content-center">
+  <div class="tab-menu">
+    <button (click)="selectTab('map')">Map View</button>
+    <button (click)="selectTab('list')">Plant List View</button>
+  </div>
+</div>
+
+<div class="container" [ngSwitch]="currentTab">
+  <app-map-view *ngSwitchCase="'map'"></app-map-view>
+  <app-plant-list-view *ngSwitchCase="'list'"></app-plant-list-view>
+</div>

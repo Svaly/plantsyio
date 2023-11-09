@@ -9,11 +9,10 @@ export interface Area {
 }
 
 export interface Room {
-  content: string;
-  classes: string;
+  name: string;
 }
 
-export interface FactoryPlanServiceData {
+export interface FactoryPlan {
   rows: Area[][];
   centralRoom: Room;
 }
@@ -22,7 +21,7 @@ export interface FactoryPlanServiceData {
   providedIn: 'root'
 })
 export class FactoryPlanService {
-  private dataSubject = new BehaviorSubject<FactoryPlanServiceData>({
+  private dataSubject = new BehaviorSubject<FactoryPlan>({
     rows: [
       [
         { id:1, name: 'Plant Area 1', classes: 'col-md-5 plant-area', soilMoisture: 55 },
@@ -41,12 +40,12 @@ export class FactoryPlanService {
       ],
       // Repeat this structure for additional rows as needed
     ],
-    centralRoom: { content: 'Central Room', classes: 'col-md-4 room' }
+    centralRoom: { name: 'Central Room' }
   });
 
   constructor() {}
 
-  getFactoryPlanData(): Observable<FactoryPlanServiceData> {
+  getFactoryPlanData(): Observable<FactoryPlan> {
     return this.dataSubject.asObservable().pipe(delay(1000));
   }
 

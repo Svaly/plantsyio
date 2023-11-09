@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Area, FactoryPlanService, Room } from './factory-plan-service';
+import { Area, FactoryPlan, FactoryPlanService, Room } from './factory-plan-service';
 import { AreaDetailsModalComponent } from './area-details-modal/area-details-modal.component';
 import { WaterManagementService } from './water-management-service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../store/app.state';
+import * as selectors from '../store/app.selectors';
+import * as actions from '../store/app.actions';
 
 @Component({
   selector: 'app-map-view',
@@ -12,18 +16,17 @@ import { Observable } from 'rxjs';
 })
 export class MapViewComponent implements OnInit {
 
-  rows: Area[][] = [];
-  centralRoom: Room | null = null;
+  factoryPlan$: Observable<FactoryPlan> | undefined;
   loading = true;
   rainWaterLevel$: Observable<number> | undefined;
 
   constructor(
     private modalService: NgbModal,
-    private factoryPlanService: FactoryPlanService,
+    private store: Store<AppState>,
     private waterManagementService: WaterManagementService) { }
 
   ngOnInit(): void {
-    this.getFactoryData();
+    this.factoryPlan$ = this.store.pipe(select(selectors.selectFactoryPlan), tap(c => console.log(c)));
     this.rainWaterLevel$ = this.waterManagementService.rainWaterLevel$;
   }
 
@@ -33,17 +36,8 @@ export class MapViewComponent implements OnInit {
 
     modalRef.result.then(
       (updatedArea) => {
-        this.factoryPlanService.updateArea(updatedArea.id, updatedArea.name)
-        this.getFactoryData();
+        this.store.dispatch(actions.updateArea({ updatedArea }));
       },
     );
-  }
-
-  private getFactoryData() {
-    this.factoryPlanService.getFactoryPlanData().subscribe(data => {
-      this.rows = data.rows;
-      this.centralRoom = data.centralRoom;
-      this.loading = false;
-    });
   }
 }

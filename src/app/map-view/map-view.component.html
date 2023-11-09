@@ -1,8 +1,6 @@
-<div *ngIf="loading" class="loader">Loading...</div>
-
-<div class="container mt-3" *ngIf="!loading">
+<div *ngIf="factoryPlan$ | async as factoryPlan" class="container mt-3" >
   <!-- Iterate over each row -->
-  <div *ngFor="let row of rows" class="row g-2">
+  <div *ngFor="let row of factoryPlan.rows" class="row g-2">
     <!-- Iterate over each area within the row -->
     <div *ngFor="let area of row" [class]="area.classes + ' d-flex align-items-center justify-content-center'"
     (click)="openAreaDetails(area)">
@@ -14,7 +12,7 @@
   <div class="row g-2 justify-content-center">
     <div class="col-md-2"></div> <!-- Empty div for spacing -->
     <div class="d-flex align-items-center justify-content-center">
-      {{ centralRoom?.name }}
+      {{ factoryPlan.centralRoom.name }}
     </div>
     <div class="col-md-2"></div> <!-- Empty div for spacing -->
   </div>

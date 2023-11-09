@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Action, createReducer, on } from '@ngrx/store';
-import { AppState } from './app.state';
+import { createAction, props } from '@ngrx/store';
+import { Area } from '../map-view/factory-plan-service';
 
 
-export const appReducer = createReducer<AppState, Action>(
-  initialQaConfigState,
-);
+export const updateArea = createAction(
+  '[Factory Plan] Update Area',
+  props<{ updatedArea: Area; }>());

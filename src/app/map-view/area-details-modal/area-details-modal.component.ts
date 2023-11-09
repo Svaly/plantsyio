@@ -2,6 +2,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Area } from '../factory-plan-service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { WaterManagementService } from '../water-management-service';
 
 @Component({
   selector: 'app-area-details-modal',
@@ -14,7 +15,13 @@ export class AreaDetailsModalComponent implements OnInit {
   public areaName = '';
   public soilMoisture? = 0;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private waterManagementService: WaterManagementService) {}
+
+  public waterPlants() {
+    if(this.area?.id){
+      this.waterManagementService.waterThePlants(this.area.id);
+    }
+  }
 
   onSave() {
     if (this.area) {

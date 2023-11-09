@@ -16,3 +16,11 @@
   min-height: 100px; /* Minimum height for demonstration */
   margin-bottom: 10px; /* Spacing between rows */
 }
+
+
+.rain-water-area {
+  background-color: #c1ade6; /* Light blue for the room */
+  border: 1px solid #000066; /* Dark blue border */
+  min-height: 100px; /* Minimum height for demonstration */
+  margin-bottom: 10px; /* Spacing between rows */
+}

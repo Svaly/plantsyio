@@ -12,3 +12,16 @@ export const selectFactoryPlanRows = createSelector(
   globalStateFeature,
   (state: AppState) => state?.factoryPlan?.rows
 );
+
+export const selectFactoryName = createSelector(
+  globalStateFeature,
+  (state: AppState) => {
+
+    if(state?.factoryPlan) {
+      return state.factoryPlan.rows;
+    }
+    return '';
+  }
+);
+
+

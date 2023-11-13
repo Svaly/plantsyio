@@ -2,15 +2,16 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { AppState, initialState } from './app.state';
 import * as AppActions from './app.actions';
+import * as lodash from 'lodash';
 
 export const appReducer = createReducer<AppState, Action>(
   initialState,
 
   on(AppActions.updateArea, (state, { updatedArea }) => {
-    const newState = { ...state };
+    let newState = lodash.cloneDeep(state);
 
-    for (const row of newState.factoryPlan.rows) {
-      for (const area of row) {
+    for (let row of newState.factoryPlan.rows) {
+      for (let area of row) {
         if (area.id === updatedArea.id) {
           area.name = updatedArea.name;
           break;
@@ -18,6 +19,25 @@ export const appReducer = createReducer<AppState, Action>(
       }
     }
 
+    return newState;
+  }),
+
+  on(AppActions.createArea, (state, { newArea }) => {
+    let newState = lodash.cloneDeep(state);
+    newState.isLoading = true;
+    return newState;
+  }),
+
+  on(AppActions.createAreaSuccess, (state, { newArea }) => {
+    let newState = lodash.cloneDeep(state);
+    newState.isLoading = false;
+    newState.factoryPlan.rows[0].push(newArea);
+    return newState;
+  }),
+
+  on(AppActions.createAreaFailed, (state, { error }) => {
+    let newState = lodash.cloneDeep(state);
+    newState.isLoading = false;
     return newState;
   }),
 );

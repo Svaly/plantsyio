@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { appReducer } from './store/app.reducers';
+import { AppEffects } from './store/app.effects';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { appReducer } from './store/app.reducers';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({appStateKey: appReducer}, {}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppEffects]),
     EntityDataModule.forRoot(entityConfig),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot({

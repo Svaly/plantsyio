@@ -1,3 +1,4 @@
+<ng-container *ngIf="name$ | async as name" >
 <div *ngIf="factoryPlan$ | async as factoryPlan" class="container mt-3" >
   <!-- Iterate over each row -->
   <div *ngFor="let row of factoryPlan.rows" class="row g-2">
@@ -28,3 +29,7 @@
     <div class="col-md-2"></div> <!-- Empty div for spacing -->
   </div>
 </div>
+</ng-container>
+
+
+<button (click)="onCreateArea()"> Create Area </button>

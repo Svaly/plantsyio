@@ -1,3 +1,35 @@
 .container{
   max-width: 1080px;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.nav-menu {
+  display: flex;
+}
+
+.nav-menu button {
+  margin-left: 10px;
+  padding: 5px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-menu button:hover {
+  background-color: #0056b3;
+}

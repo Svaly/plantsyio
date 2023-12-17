@@ -15,17 +15,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { appReducer } from './store/app.reducers';
 import { AppEffects } from './store/app.effects';
+import { RouterEffects } from './store/router/router.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapViewComponent,
     PlantListViewComponent,
-    AreaDetailsModalComponent,
+    AreaDetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +35,7 @@ import { AppEffects } from './store/app.effects';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({appStateKey: appReducer}, {}),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects, RouterEffects]),
     EntityDataModule.forRoot(entityConfig),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot({

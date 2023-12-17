@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Area, FactoryPlan, FactoryPlanService, Room } from './factory-plan-service';
+import { Area, FactoryPlan } from './factory-plan-service';
 import { AreaDetailsModalComponent } from './area-details-modal/area-details-modal.component';
 import { WaterManagementService } from './water-management-service';
-import { Observable, filter, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/app.state';
 import * as selectors from '../store/app.selectors';

@@ -10,14 +10,13 @@ export const appReducer = createReducer<AppState, Action>(
   on(AppActions.updateArea, (state, { updatedArea }) => {
     let newState = lodash.cloneDeep(state);
 
-    for (let row of newState.factoryPlan.rows) {
-      for (let area of row) {
-        if (area.id === updatedArea.id) {
-          area.name = updatedArea.name;
-          break;
-        }
+    newState.factoryPlan.rows.forEach(row => {
+      let areaToUpdate = row.find(area => area.id === updatedArea.id);
+      if (areaToUpdate) {
+        areaToUpdate.name = updatedArea.name;
       }
-    }
+    });
+
 
     return newState;
   }),

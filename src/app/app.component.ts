@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import * as routerActions from './store/router/router.actions';
+import { AppState } from './store/app.state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +9,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  currentTab: 'map' | 'list' = 'map';
+  constructor(private store: Store<AppState>) { }
 
-  selectTab(tab: 'map' | 'list') {
-    this.currentTab = tab;
+
+  selectTab(tab: 'map' | 'plants' | 'factory-statistics') {
+    this.store.dispatch(routerActions.navigate({ path: ['/', tab] }));
   }
-
-
 }

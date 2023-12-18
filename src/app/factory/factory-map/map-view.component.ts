@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Area, FactoryPlan } from './factory-plan-service';
-import { AreaDetailsModalComponent } from './area-details-modal/area-details-modal.component';
-import { WaterManagementService } from './water-management-service';
+import { FactoryPlan } from './service-factory-plan/factory-plan';
+import { PlantBed } from './service-factory-plan/garden-bed';
+import { GardenBedModalComponent } from './modal-garden-bed/garden-bed-modal.component';
+import { WaterManagementService } from './service-water-management/water-management-service';
 import { Observable, tap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '../store/app.state';
-import * as selectors from '../store/app.selectors';
-import * as actions from '../store/app.actions';
+import { AppState } from '../../store/app.state';
+import * as selectors from '../.store/factory-feature.selectors';
+import * as actions from '../.store/factory-feature.actions';
 
 @Component({
   selector: 'app-map-view',
@@ -40,18 +41,19 @@ export class MapViewComponent implements OnInit {
 
   onCreateArea(): void {
     this.store.dispatch(
-      actions.createArea({
-        newArea: { id:1, name: 'Plant Area TEST', classes: 'col-md-5 plant-area', soilMoisture: 55 }
+      actions.createPlantBed({
+        newArea: { id:1, name: 'Plant Area TEST', classes: 'col-md-5 plant-area', soilMoisture: 55 },
+        isLoading: true
     }));
   }
 
-  openAreaDetails(area: Area) {
-    const modalRef = this.modalService.open(AreaDetailsModalComponent);
+  openAreaDetails(area: PlantBed) {
+    const modalRef = this.modalService.open(GardenBedModalComponent);
     modalRef.componentInstance.area = { ...area };
 
     modalRef.result.then(
       (updatedArea) => {
-        this.store.dispatch(actions.updateArea({ updatedArea }));
+        this.store.dispatch(actions.updatePlantBed({ updatedArea, isLoading: true }));
       },
     );
   }

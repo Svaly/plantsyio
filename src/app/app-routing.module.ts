@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
-import { MapViewComponent } from './map-view/map-view.component';
-import { PlantListViewComponent } from './plant-list-view/plant-list-view.component';
+import { RouterModule, Routes, Router, PreloadAllModules } from '@angular/router';
+import { MapViewComponent } from './factory/factory-map/map-view.component';
+import { PlantListViewComponent } from './factory/factory-plants-list/plant-list-view.component';
+import { PlantsResolverService } from './factory/factory-plants-list/service-plant-list-router-resolver/plants-list-router-resolver.service';
 
 
 const routes: Routes = [
@@ -17,6 +18,9 @@ const routes: Routes = [
   {
     path: 'plants',
     component: PlantListViewComponent,
+    resolve: {
+      plantsLoaded: PlantsResolverService
+    }
   },
   {
     path: 'factory-statistics',
@@ -25,14 +29,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: false })],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forRoot(routes, { useHash: false, preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule],
+  providers: []
 })
 export class AppRoutingModule {
-    constructor(
-        private router: Router) {
+  constructor(
+    private router: Router) {
 
-        this.router.resetConfig(routes);
-    }
+    this.router.resetConfig(routes);
+  }
 }

@@ -1,0 +1,18 @@
+<div class="plant-list">
+  <div *ngFor="let plant of plants$ | async" class="plant-card">
+    <div class="plant-header">
+      <img [src]="plant.picture" alt="{{ plant.name }}" class="plant-image">
+      <h3>{{ plant.name }}</h3>
+    </div>
+    <div class="plant-details">
+      <p><strong>ID:</strong> {{ plant.id }}</p>
+      <p><strong>Plant Bed ID:</strong> {{ plant.plantBedId }}</p>
+      <p><strong>Amount:</strong> {{ plant.amount }}</p>
+      <p><strong>Condition:</strong> {{ plant.condition }}</p>
+      <p><strong>Development Phase:</strong> {{ plant.developmentPhase }}</p>
+      <p><strong>Planting Date:</strong> {{ plant.plantingDate | date }}</p>
+      <p><strong>Harvest Date:</strong> {{ plant.harvestDate | date }}</p>
+    </div>
+  </div>
+</div>
+

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AreaDetailsModalComponent } from './area-details-modal.component';
+import { GardenBedModalComponent } from './garden-bed-modal.component';
 
 describe('AreaDetailsModalComponent', () => {
-  let component: AreaDetailsModalComponent;
-  let fixture: ComponentFixture<AreaDetailsModalComponent>;
+  let component: GardenBedModalComponent;
+  let fixture: ComponentFixture<GardenBedModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AreaDetailsModalComponent ]
+      declarations: [ GardenBedModalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AreaDetailsModalComponent);
+    fixture = TestBed.createComponent(GardenBedModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

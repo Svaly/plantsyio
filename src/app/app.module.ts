@@ -1,47 +1,43 @@
+/**Modules */
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { environment } from '../environments/environment';
+import { FactoryModule } from './factory/factory.module';
+import { SharedModule } from './.shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent } from './app.component';
-import { MapViewComponent } from './map-view/map-view.component';
-import { PlantListViewComponent } from './plant-list-view/plant-list-view.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { AreaDetailsModalComponent } from './map-view/area-details-modal/area-details-modal.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+/**Store */
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './store/entity-metadata';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+import { entityConfig } from './store/entity-metadata';
 import { appReducer } from './store/app.reducers';
 import { AppEffects } from './store/app.effects';
 import { RouterEffects } from './store/router/router.effects';
 
+/**Components */
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+
+
 @NgModule({
   declarations: [
-    AppComponent,
-    MapViewComponent,
-    PlantListViewComponent,
-    AreaDetailsModalComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    NgbModalModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    SharedModule,
+    FactoryModule,
     AppRoutingModule,
-    StoreModule.forRoot({appStateKey: appReducer}, {}),
+    StoreModule.forRoot({appState: appReducer}, {}),
     EffectsModule.forRoot([AppEffects, RouterEffects]),
     EntityDataModule.forRoot(entityConfig),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
       routerState: RouterState.Minimal
-    })
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

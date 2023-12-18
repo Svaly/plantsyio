@@ -1,0 +1,24 @@
+.plant-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Adjust as needed */
+  gap: 20px; /* Space between cards */
+}
+
+.plant-card {
+  flex: 0 1 calc(33% - 20px); /* Adjust width as needed, subtract gap */
+  border: 1px solid #ccc; /* Optional border */
+  border-radius: 5px; /* Optional rounded corners */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional shadow */
+  overflow: hidden;
+  margin-bottom: 20px; /* Space below each card */
+}
+
+.plant-image {
+  width: 25%; /* Make image fill card width */
+  height: auto; /* Keep image aspect ratio */
+}
+
+.plant-header, .plant-details {
+  padding: 10px; /* Padding inside card */
+}

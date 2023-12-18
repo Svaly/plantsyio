@@ -1,16 +1,16 @@
 // area-details-modal.component.ts
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Area } from '../factory-plan-service';
+import { PlantBed } from '../service-factory-plan/garden-bed';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { WaterManagementService } from '../water-management-service';
+import { WaterManagementService } from '../service-water-management/water-management-service';
 
 @Component({
-  selector: 'app-area-details-modal',
-  templateUrl: './area-details-modal.component.html',
+  selector: 'app-garden-bed-modal',
+  templateUrl: './garden-bed-modal.component.html',
 })
-export class AreaDetailsModalComponent implements OnInit {
-  @Input() area: Area | null = null;
-  @Output() updatedArea = new EventEmitter<Area>();
+export class GardenBedModalComponent implements OnInit {
+  @Input() area: PlantBed | null = null;
+  @Output() updatedArea = new EventEmitter<PlantBed>();
 
   public areaName = '';
   public soilMoisture? = 0;

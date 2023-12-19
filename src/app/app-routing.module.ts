@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Router, PreloadAllModules } from '@angular/router';
 import { MapViewComponent } from './factory/factory-map/map-view.component';
 import { PlantListViewComponent } from './factory/factory-plants-list/plant-list-view.component';
-import { PlantsResolverService } from './factory/factory-plants-list/service-plant-list-router-resolver/plants-list-router-resolver.service';
-
+import { EditPlantComponent } from './factory/factory-plants-list/edit-plant/edit-plant.component';
+import { PlantsResolverService } from './factory/factory-plants-list/_services/plant-list-router-resolver-service/plants-list-router-resolver.service';
+import { PlantCreateGuardService } from './factory/factory-plants-list/_services/plant-create-guard-service/plants-create-guard.service';
+import { PlantEditResolverService } from './factory/factory-plants-list/_services/plant-edit-router-resolver-service/plants-edit-router-resolver.service';
 
 const routes: Routes = [
   {
@@ -20,6 +22,18 @@ const routes: Routes = [
     component: PlantListViewComponent,
     resolve: {
       plantsLoaded: PlantsResolverService
+    }
+  },
+  {
+    path: 'plants/create/:plantId',
+    component: EditPlantComponent,
+    canActivate: [PlantCreateGuardService]
+  },
+  {
+    path: 'plants/edit/:plantId',
+    component: EditPlantComponent,
+    resolve: {
+      plantsLoaded: PlantEditResolverService
     }
   },
   {

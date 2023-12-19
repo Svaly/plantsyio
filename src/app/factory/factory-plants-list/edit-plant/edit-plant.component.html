@@ -1,0 +1,84 @@
+<ng-container *ngIf="stateChanges$ | async">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container mt-4">
+    <!-- ID Field (Readonly, so no validation messages) -->
+    <div class="form-group mb-3">
+      <label for="id" class="form-label">ID:</label>
+      <input type="text" [formControl]="form.idFormControl" class="form-control disabled" id="id" readonly>
+    </div>
+
+    <!-- Name Field -->
+    <div class="form-group mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" [formControl]="form.nameFormControl" class="form-control" id="name">
+      <div *ngIf="submitClicked && form.hasAnyError(form.nameFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.nameFormControl)">Name is required.</div>
+      </div>
+    </div>
+
+    <!-- Picture URL Field -->
+    <div class="form-group mb-3">
+      <label for="picture" class="form-label">Picture URL:</label>
+      <input type="text" [formControl]="form.pictureFormControl" class="form-control" id="picture">
+      <div *ngIf="submitClicked && form.hasAnyError(form.pictureFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.pictureFormControl)">Picture URL is required.</div>
+      </div>
+    </div>
+
+    <!-- Plant Bed ID Field -->
+    <div class="form-group mb-3">
+      <label for="plantBedId" class="form-label">Plant Bed ID:</label>
+      <input type="number" [formControl]="form.plantBedIdFormControl" class="form-control" id="plantBedId">
+      <div *ngIf="submitClicked && form.hasAnyError(form.plantBedIdFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.plantBedIdFormControl)">Plant Bed ID is required.</div>
+      </div>
+    </div>
+
+    <!-- Amount Field -->
+    <div class="form-group mb-3">
+      <label for="amount" class="form-label">Amount:</label>
+      <input type="number" [formControl]="form.amountFormControl" class="form-control" id="amount">
+      <div *ngIf="submitClicked && form.hasAnyError(form.amountFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.amountFormControl)">Amount is required.</div>
+        <div *ngIf="form.hasMinError(form.amountFormControl)">Minimal amount is 1</div>
+      </div>
+    </div>
+
+    <!-- Condition Field -->
+    <div class="form-group mb-3">
+      <label for="condition" class="form-label">Condition:</label>
+      <input type="text" [formControl]="form.conditionFormControl" class="form-control" id="condition">
+      <div *ngIf="submitClicked && form.hasAnyError(form.conditionFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.conditionFormControl)">Condition is required.</div>
+      </div>
+    </div>
+
+    <!-- Development Phase Field -->
+    <div class="form-group mb-3">
+      <label for="developmentPhase" class="form-label">Development Phase:</label>
+      <input type="text" [formControl]="form.developmentPhaseFormControl" class="form-control" id="developmentPhase">
+      <div *ngIf="submitClicked && form.hasAnyError(form.developmentPhaseFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.developmentPhaseFormControl)">Development Phase is required.</div>
+      </div>
+    </div>
+
+    <!-- Planting Date Field -->
+    <div class="form-group mb-3">
+      <label for="plantingDate" class="form-label">Planting Date:</label>
+      <input type="date" [formControl]="form.plantingDateFormControl" class="form-control" id="plantingDate">
+      <div *ngIf="submitClicked && form.hasAnyError(form.plantingDateFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.plantingDateFormControl)">Planting Date is required.</div>
+      </div>
+    </div>
+
+    <!-- Harvest Date Field -->
+    <div class="form-group mb-3">
+      <label for="harvestDate" class="form-label">Harvest Date:</label>
+      <input type="date" [formControl]="form.harvestDateFormControl" class="form-control" id="harvestDate">
+      <div *ngIf="submitClicked && form.hasAnyError(form.harvestDateFormControl)" class="alert alert-danger">
+        <div *ngIf="form.hasRequiredError(form.harvestDateFormControl)">Harvest Date is required.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</ng-container>

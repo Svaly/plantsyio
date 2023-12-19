@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FactoryPlan } from './service-factory-plan/factory-plan';
-import { PlantBed } from './service-factory-plan/garden-bed';
+import { FactoryPlan } from './_services/factory-plan-service/factory-plan';
+import { PlantBed } from './_services/factory-plan-service/garden-bed';
 import { GardenBedModalComponent } from './modal-garden-bed/garden-bed-modal.component';
-import { WaterManagementService } from './service-water-management/water-management-service';
+import { WaterManagementService } from './_services/water-management-service/water-management-service';
 import { Observable, tap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
+import { AppState } from '../../.store/app.state';
 import * as selectors from '../.store/factory-feature.selectors';
 import * as actions from '../.store/factory-feature.actions';
 

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, take, tap } from 'rxjs';
-import { Plant } from './plant.model';
+import { BehaviorSubject, Observable, delay, map, of, take } from 'rxjs';
+import { PlantListItem } from './plant.model';
+import { Plant } from '../../../.store/factory-feature.state.models';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class PlantListService {
 
-   plants: Plant[] = [
+  plants: PlantListItem[] = [
     {
-      'id': 2,
+      'id': uuidv4(),
       'name': 'Fiddle Leaf Fig',
       'picture': 'https://testfilesforlangai.blob.core.windows.net/angularimages/2.png?sp=r&st=2023-12-17T19:51:16Z&se=2030-12-18T03:51:16Z&spr=https&sv=2022-11-02&sr=b&sig=2ewALFJK20J0agvWOS8XEfRr0oRI0Nzepc51N2m7z68%3D',
       'plantBedId': 119,
@@ -18,7 +20,7 @@ export class PlantListService {
       'harvestDate': new Date(2024, 2, 1)
     },
     {
-      'id': 3,
+      'id': uuidv4(),
       'name': 'Spider Plant',
       'picture': 'https://testfilesforlangai.blob.core.windows.net/angularimages/3.png?sp=r&st=2023-12-17T19:51:54Z&se=2040-12-18T03:51:54Z&spr=https&sv=2022-11-02&sr=b&sig=i63MIn7C30iD5glJzlZQ%2F3WiEgYe1aEVN15a6ObondA%3D',
       'plantBedId': 167,
@@ -29,7 +31,7 @@ export class PlantListService {
       'harvestDate': new Date(2023, 12, 16)
     },
     {
-      'id': 4,
+      'id': uuidv4(),
       'name': 'Fiddle Leaf Fig',
       'picture': 'https://testfilesforlangai.blob.core.windows.net/angularimages/4.png?sp=r&st=2023-12-17T19:52:10Z&se=2040-12-18T03:52:10Z&spr=https&sv=2022-11-02&sr=b&sig=jvR82pVrn4%2Bsvm4yCH8YWfmfBe7GIq0bp0yvRw2TIdo%3D',
       'plantBedId': 169,
@@ -40,7 +42,7 @@ export class PlantListService {
       'harvestDate': new Date(2024, 6, 17)
     },
     {
-      'id': 5,
+      'id': uuidv4(),
       'name': 'Peace Lily',
       'picture': 'https://testfilesforlangai.blob.core.windows.net/angularimages/5.png?sp=r&st=2023-12-17T19:52:24Z&se=2040-12-18T03:52:24Z&spr=https&sv=2022-11-02&sr=b&sig=ZIXW7CH8s1xUTrozxVSM6%2FL%2BMHiqzcc1VEYF0pauEkE%3D',
       'plantBedId': 176,
@@ -51,7 +53,7 @@ export class PlantListService {
       'harvestDate': new Date(2024, 2, 17)
     },
     {
-      'id': 7,
+      'id': uuidv4(),
       'name': 'Fiddle Leaf Fig',
       'picture': 'path/to/fiddle_leaf_fig_image.jpg',
       'plantBedId': 178,
@@ -62,7 +64,7 @@ export class PlantListService {
       'harvestDate': new Date(2024, 3, 31)
     },
     {
-      'id': 8,
+      'id': uuidv4(),
       'name': 'Jade Plant',
       'picture': 'path/to/jade_plant_image.jpg',
       'plantBedId': 174,
@@ -73,7 +75,7 @@ export class PlantListService {
       'harvestDate': new Date(2024, 4, 4)
     },
     {
-      'id': 9,
+      'id': uuidv4(),
       'name': 'Aloe Vera',
       'picture': 'path/to/aloe_vera_image.jpg',
       'plantBedId': 128,
@@ -84,7 +86,7 @@ export class PlantListService {
       'harvestDate': new Date(2024, 3, 21)
     },
     {
-      'id': 10,
+      'id': uuidv4(),
       'name': 'Fiddle Leaf Fig',
       'picture': 'path/to/fiddle_leaf_fig_image.jpg',
       'plantBedId': 174,
@@ -95,25 +97,36 @@ export class PlantListService {
       'harvestDate': new Date(2024, 2, 29)
     }];
 
-  private plantsSubject = new BehaviorSubject<Plant[]>(this.plants);
-  private plants$: Observable<Plant[]> = this.plantsSubject.asObservable();
+  private plantsSubject = new BehaviorSubject<PlantListItem[]>(this.plants);
+  private plants$: Observable<PlantListItem[]> = this.plantsSubject.asObservable();
 
   constructor() { }
 
-  getAllPlants(): Observable<Plant[]> {
-    return this.plants$.pipe(take(1), tap(p => console.log('getAllPlants', p)));
+  getAllPlants(): Observable<PlantListItem[]> {
+    return this.plants$.pipe(take(1), delay(1000));
   }
 
-  getFilteredPlants(filterFunc: (plant: Plant) => boolean): Observable<Plant[]> {
+  getFilteredPlants(filterFunc: (plant: PlantListItem) => boolean): Observable<PlantListItem[]> {
     return this.plants$.pipe(map(plants => plants.filter(filterFunc)));
   }
 
-  addPlant(newPlant: Plant): void {
-    this.plants.push(newPlant);
-    this.plantsSubject.next(this.plants);
+  getPlant(plantId: string): Observable<Plant> {
+    const plant = this.plantsSubject.value.find(plant => plant.id === plantId);
+
+    if (!plant) {
+      throw new Error(`Plant with id ${plantId} not found`);
+    }
+
+    return of({ ...plant } as Plant).pipe(delay(1000));
   }
 
-  removePlant(plantId: number): void {
+  addPlant(newPlant: Plant): Observable<Plant> {
+    const newPlantList = [...this.plantsSubject.value, newPlant];
+    this.plantsSubject.next(newPlantList);
+    return of(newPlant).pipe(delay(1000));
+  }
+
+  removePlant(plantId: string): void {
     this.plants = this.plants.filter(plant => plant.id !== plantId);
     this.plantsSubject.next(this.plants);
   }

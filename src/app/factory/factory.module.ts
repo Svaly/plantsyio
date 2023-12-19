@@ -12,13 +12,15 @@ import { FactoryFeatureEffects } from './.store/factory-feature.effects';
 import { MapViewComponent } from './factory-map/map-view.component';
 import { PlantListViewComponent } from './factory-plants-list/plant-list-view.component';
 import { GardenBedModalComponent } from './factory-map/modal-garden-bed/garden-bed-modal.component';
-import { PlantListService } from './factory-plants-list/service-plants-list/plants-list.service';
+import { PlantListService } from './factory-plants-list/_services/plants-list-service/plants-list.service';
+import { EditPlantComponent } from './factory-plants-list/edit-plant/edit-plant.component';
 
 @NgModule({
   declarations: [
     MapViewComponent,
     PlantListViewComponent,
-    GardenBedModalComponent
+    GardenBedModalComponent,
+    EditPlantComponent
   ],
   imports: [
     CommonModule,

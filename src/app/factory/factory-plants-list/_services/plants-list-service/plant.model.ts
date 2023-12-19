@@ -1,5 +1,5 @@
-export interface Plant {
-  id: number;
+export interface PlantListItem {
+  id: string;
   name: string;
   picture: string;
   plantBedId: number;

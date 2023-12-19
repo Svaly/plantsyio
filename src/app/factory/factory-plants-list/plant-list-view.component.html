@@ -1,18 +1,31 @@
-<div class="plant-list">
-  <div *ngFor="let plant of plants$ | async" class="plant-card">
-    <div class="plant-header">
-      <img [src]="plant.picture" alt="{{ plant.name }}" class="plant-image">
-      <h3>{{ plant.name }}</h3>
-    </div>
-    <div class="plant-details">
-      <p><strong>ID:</strong> {{ plant.id }}</p>
-      <p><strong>Plant Bed ID:</strong> {{ plant.plantBedId }}</p>
-      <p><strong>Amount:</strong> {{ plant.amount }}</p>
-      <p><strong>Condition:</strong> {{ plant.condition }}</p>
-      <p><strong>Development Phase:</strong> {{ plant.developmentPhase }}</p>
-      <p><strong>Planting Date:</strong> {{ plant.plantingDate | date }}</p>
-      <p><strong>Harvest Date:</strong> {{ plant.harvestDate | date }}</p>
+<ng-container *ngIf="(state$ | async) as state">
+  <div class="create-new-container">
+    <button class="create-new-btn" (click)="onAddNewPlant()">Add new Plant</button>
+  </div>
+
+  <div class="plant-list">
+    <div *ngFor="let plant of state.plantsList" class="plant-card" (click)="onPlantCardClicked(plant.id)">
+      <div class="plant-header">
+        <img [src]="plant.picture" alt="{{ plant.name }}" class="plant-image">
+        <h3>{{ plant.name }}</h3>
+      </div>
+      <div class="plant-details">
+        <p><strong>ID:</strong> {{ plant.id }}</p>
+        <p><strong>Plant Bed ID:</strong> {{ plant.plantBedId }}</p>
+        <p><strong>Amount:</strong> {{ plant.amount }}</p>
+        <p><strong>Condition:</strong> {{ plant.condition }}</p>
+        <p><strong>Development Phase:</strong> {{ plant.developmentPhase }}</p>
+        <p><strong>Planting Date:</strong> {{ plant.plantingDate | date }}</p>
+        <p><strong>Harvest Date:</strong> {{ plant.harvestDate | date }}</p>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
 
+<ng-container *ngIf="isLoading">
+  <div class="plant-list loading-animation">
+    <div class="plant-card loading-bar"></div>
+    <div class="plant-card loading-bar"></div>
+    <div class="plant-card loading-bar"></div>
+  </div>
+</ng-container>

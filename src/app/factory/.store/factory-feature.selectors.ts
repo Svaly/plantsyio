@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FactoryFeatureState, PlantState, plantEntityAdapter } from './factory-feature.state';
+import { FactoryFeatureState,  plantEntityAdapter } from './factory-feature.state';
+import { selectRouteParam, selectQueryParam } from '../../.store/router/router.selectors';
 
 export const factoryFeatureState = createFeatureSelector<FactoryFeatureState>('factoryFeature');
 
@@ -18,7 +19,7 @@ export const selectFactoryName = createSelector(
   factoryFeatureState,
   (state: FactoryFeatureState) => {
 
-    if(state?.factoryPlan) {
+    if (state?.factoryPlan) {
       return state.factoryPlan.rows;
     }
     return '';
@@ -33,3 +34,21 @@ export const selectPlantIds = createSelector(factoryFeatureState, selectIds);
 export const selectPlantEntities = createSelector(factoryFeatureState, selectEntities);
 export const selectAllPlants = createSelector(factoryFeatureState, selectAll);
 export const selectPlantsTotal = createSelector(factoryFeatureState, selectTotal);
+
+export const selectPlantsList = createSelector(
+  factoryFeatureState,
+  (state: FactoryFeatureState) => state.plantsList);
+
+  export const selectPlantsListLoading = createSelector(
+    factoryFeatureState,
+    (state: FactoryFeatureState) => state.plantsListLoading);
+
+
+export const selectPlantsIdFromUrl = createSelector(
+  selectRouteParam('plantId'),
+  (id) => id);
+
+export const selectActivePlant = createSelector(
+  selectPlantEntities,
+  selectPlantsIdFromUrl,
+  (plants, id) => !id ? null : plants[id]);

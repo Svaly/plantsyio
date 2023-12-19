@@ -1,8 +1,8 @@
 // area-details-modal.component.ts
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { PlantBed } from '../service-factory-plan/garden-bed';
+import { PlantBed } from '../_services/factory-plan-service/garden-bed';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { WaterManagementService } from '../service-water-management/water-management-service';
+import { WaterManagementService } from '../_services/water-management-service/water-management-service';
 
 @Component({
   selector: 'app-garden-bed-modal',

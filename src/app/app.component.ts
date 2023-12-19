@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import * as routerActions from './store/router/router.actions';
-import { AppState } from './store/app.state';
+import * as routerActions from './.store/router/router.actions';
+import { AppState } from './.store/app.state';
 import { Store } from '@ngrx/store';
 
 @Component({
